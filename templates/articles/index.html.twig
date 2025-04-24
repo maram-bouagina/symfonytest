@@ -8,16 +8,24 @@
             <thead>
                 <tr>
                     <th>Article</th>
+                    <th>Prix</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for article in articles %}
                     <tr>
-                        <td>{{ article }}</td>
+                          <td>{{ article.nom }}</td>
+                           <td>{{ article.prix|number_format(2, ',', ' ') }} €</td>
                         <td>
-                            <a href="/article/1" class="btn btn-dark">Détails</a>
+                            <a href="/article/{{ article.id }}" class="btn btn-dark">Détails</a>
+                             <a href="/article/edit/{{ article.id }}" class="btn btn dark">Modifier</a> 
+                              <form method="POST" action="{{ path('article_delete', {id: article.id}) }}" class="d-inline" >
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
                         </td>
+                        
                     </tr>
                 {% endfor %}
             </tbody>
