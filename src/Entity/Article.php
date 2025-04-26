@@ -33,7 +33,21 @@ class Article
 )]
 private ?string $prix = null;
 
-    
+#[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
+#[ORM\JoinColumn(nullable: false)]
+#[Assert\NotNull(message: "La catégorie est obligatoire")]
+private ?Category $category = null;
+
+public function getCategory(): ?Category
+{
+    return $this->category;
+}
+
+public function setCategory(?Category $category): static
+{
+    $this->category = $category;
+    return $this;
+}
 
 
     public function getId(): ?int

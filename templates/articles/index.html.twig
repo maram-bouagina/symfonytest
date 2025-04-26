@@ -10,6 +10,7 @@
                     <th>Article</th>
                     <th>Prix</th>
                     <th>Actions</th>
+                    <th>Catégorie</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                     <tr>
                           <td>{{ article.nom }}</td>
                            <td>{{ article.prix|number_format(2, ',', ' ') }} €</td>
+                           <td>{{ article.category.titre }}</td>
                         <td>
                             <a href="/article/{{ article.id }}" class="btn btn-dark">Détails</a>
                              <a href="/article/edit/{{ article.id }}" class="btn btn dark">Modifier</a> 
