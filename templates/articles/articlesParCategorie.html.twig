@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Articles{% endblock %}
+{% block title %}Liste des Articles par Catégorie{% endblock %}
 
 {% block body %}
-    {# Ajout du formulaire de recherche #}
     {{ form_start(form) }}
     <div class="form-row align-items-end">
         <div class="col">
-            {{ form_row(form.nom) }}
+            {{ form_row(form.category) }}
         </div>
         <div class="col">
-            <button type="submit" class="btn btn-success">Rechercher</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Rechercher</button>
+            </div>
         </div>
     </div>
     {{ form_end(form) }}
@@ -19,10 +20,10 @@
         <table id="articles" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Article</th>
+                    <th>Nom</th>
                     <th>Prix</th>
-                    <th>Actions</th>
                     <th>Catégorie</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,17 +34,14 @@
                         <td>{{ article.category.titre }}</td>
                         <td>
                             <a href="/article/{{ article.id }}" class="btn btn-dark">Détails</a>
-                            <a href="/article/edit/{{ article.id }}" class="btn btn-dark">Modifier</a> <!-- Correction de btn dark en btn-dark -->
-                            <form method="POST" action="{{ path('article_delete', {id: article.id}) }}" class="d-inline">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                                <button class="btn btn-danger">Supprimer</button>
-                            </form>
+                            <a href="/article/edit/{{ article.id }}" class="btn btn-dark">Modifier</a>
+                            <a href="/article/delete/{{ article.id }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de supprimer cet article ?');">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <p>Aucun article</p>
+        <p>Aucun articles</p>
     {% endif %}
 {% endblock %}
